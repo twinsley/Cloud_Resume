@@ -1,1 +1,3 @@
-iac/.terraform/
+iac/.terraform/*
+iac/terraform.tfstate
+iac/terraform.tfstate.backup
