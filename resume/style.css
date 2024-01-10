@@ -13,6 +13,9 @@ h1 {
     text-align: right;
     text-decoration: underline;
 }
+.counter {
+    float: left;
+}
 #firstlang {
     float:left;
 }
