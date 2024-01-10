@@ -29,9 +29,6 @@ resource "azurerm_storage_account" "st" {
   static_website {
     index_document = "index.html"
   }
-  custom_domain {
-    name = "resume.twinsley.com"
-  }
 
   tags = var.resource_tags
 }
@@ -42,4 +39,79 @@ resource "azurerm_virtual_network" "vnet" {
   location            = var.region
   resource_group_name = azurerm_resource_group.rg.name
   tags                = var.resource_tags
+}
+
+resource "azurerm_cdn_profile" "cdn" {
+  name                = "cdn${var.project_name}"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  sku                 = "Standard_Microsoft"
+}
+
+resource "azurerm_cdn_endpoint" "cdnendpoint" {
+  name                = "cdnep${var.project_name}"
+  profile_name        = azurerm_cdn_profile.cdn.name
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+
+  origin {
+    name      = "st"
+    host_name = azurerm_storage_account.st.primary_blob_host
+  }
+  is_compression_enabled = true
+  content_types_to_compress = [
+    "application/eot",
+    "application/font",
+    "application/font-sfnt",
+    "application/javascript",
+    "application/json",
+    "application/opentype",
+    "application/otf",
+    "application/pkcs7-mime",
+    "application/truetype",
+    "application/ttf",
+    "application/vnd.ms-fontobject",
+    "application/xhtml+xml",
+    "application/xml",
+    "application/xml+rss",
+    "application/x-font-opentype",
+    "application/x-font-truetype",
+    "application/x-font-ttf",
+    "application/x-httpd-cgi",
+    "application/x-javascript",
+    "application/x-mpegurl",
+    "application/x-opentype",
+    "application/x-otf",
+    "application/x-perl",
+    "application/x-ttf",
+    "font/eot",
+    "font/ttf",
+    "font/otf",
+    "font/opentype",
+    "image/svg+xml",
+    "text/css",
+    "text/csv",
+    "text/html",
+    "text/javascript",
+    "text/js",
+    "text/plain",
+    "text/richtext",
+    "text/tab-separated-values",
+    "text/xml",
+    "text/x-script",
+    "text/x-component",
+    "text/x-java-source",
+  ]
+}
+
+resource "azurerm_cdn_endpoint_custom_domain" "example" {
+  name            = "cdnecd${var.project_name}"
+  cdn_endpoint_id = azurerm_cdn_endpoint.cdnendpoint.id
+  host_name       = "resume.twinsley.com"
+
+  cdn_managed_https {
+    certificate_type = "Dedicated"
+    protocol_type = "ServerNameIndication"
+    tls_version = "TLS12"
+  }
 }
