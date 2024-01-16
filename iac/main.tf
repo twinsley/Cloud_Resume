@@ -56,7 +56,19 @@ resource "azurerm_cdn_endpoint" "cdnendpoint" {
 
   origin {
     name      = "st"
-    host_name = azurerm_storage_account.st.primary_blob_host
+    host_name = azurerm_storage_account.st.primary_web_host
+  }
+
+  delivery_rule {
+    name  = "HTTP"
+    order = 1
+    request_scheme_condition {
+      match_values = ["HTTP"]
+    }
+    url_redirect_action {
+      redirect_type = "Found"
+      protocol      = "Https"
+    }
   }
   is_compression_enabled = true
   content_types_to_compress = [
@@ -111,7 +123,7 @@ resource "azurerm_cdn_endpoint_custom_domain" "example" {
 
   cdn_managed_https {
     certificate_type = "Dedicated"
-    protocol_type = "ServerNameIndication"
-    tls_version = "TLS12"
+    protocol_type    = "ServerNameIndication"
+    tls_version      = "TLS12"
   }
 }
