@@ -32,6 +32,10 @@ resource "azurerm_storage_account" "st" {
 
   tags = var.resource_tags
 }
+resource "azurerm_storage_table" "example" {
+  name                 = "ResumeCounter"
+  storage_account_name = azurerm_storage_account.st.name
+}
 # Create a virtual network
 resource "azurerm_virtual_network" "vnet" {
   name                = "${var.vnet_prefix}${var.project_name}"
