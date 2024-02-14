@@ -6,6 +6,13 @@ terraform {
       version = "~> 3.86.0"
     }
   }
+  backend "azurerm" {
+      resource_group_name  = "tfstate"
+      storage_account_name = "tfstate27696"
+      container_name       = "tfstate"
+      key                  = "terraform.tfstate"
+  }
+
 
   required_version = ">= 1.1.0"
 }
@@ -57,10 +64,12 @@ resource "azurerm_cdn_endpoint" "cdnendpoint" {
   profile_name        = azurerm_cdn_profile.cdn.name
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
+  origin_host_header = azurerm_storage_account.st.primary_web_host
 
   origin {
     name      = "st"
     host_name = azurerm_storage_account.st.primary_web_host
+    
   }
 
   delivery_rule {
@@ -130,4 +139,27 @@ resource "azurerm_cdn_endpoint_custom_domain" "example" {
     protocol_type    = "ServerNameIndication"
     tls_version      = "TLS12"
   }
+}
+
+resource "azurerm_service_plan" "asp" {
+  name                = "asp${var.project_name}"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = var.region
+  os_type             = "Linux"
+  sku_name            = "Y1"
+  tags = var.resource_tags
+}
+
+resource "azurerm_linux_function_app" "api" {
+  name = "func${var.project_name}"
+  storage_account_name = azurerm_storage_account.st.name
+  storage_account_access_key = azurerm_storage_account.st.primary_access_key
+  resource_group_name = azurerm_resource_group.rg.name
+  location = var.region
+  service_plan_id = azurerm_service_plan.asp.id
+  tags = var.resource_tags
+  site_config {
+    
+  }
+  
 }
