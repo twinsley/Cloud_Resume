@@ -6,6 +6,13 @@ terraform {
       version = "~> 3.86.0"
     }
   }
+  backend "azurerm" {
+      resource_group_name  = "tfstate"
+      storage_account_name = "tfstate27696"
+      container_name       = "tfstate"
+      key                  = "terraform.tfstate"
+  }
+
 
   required_version = ">= 1.1.0"
 }
@@ -32,6 +39,10 @@ resource "azurerm_storage_account" "st" {
 
   tags = var.resource_tags
 }
+resource "azurerm_storage_table" "example" {
+  name                 = "ResumeCounter"
+  storage_account_name = azurerm_storage_account.st.name
+}
 # Create a virtual network
 resource "azurerm_virtual_network" "vnet" {
   name                = "${var.vnet_prefix}${var.project_name}"
@@ -53,10 +64,24 @@ resource "azurerm_cdn_endpoint" "cdnendpoint" {
   profile_name        = azurerm_cdn_profile.cdn.name
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
+  origin_host_header = azurerm_storage_account.st.primary_web_host
 
   origin {
     name      = "st"
-    host_name = azurerm_storage_account.st.primary_blob_host
+    host_name = azurerm_storage_account.st.primary_web_host
+    
+  }
+
+  delivery_rule {
+    name  = "HTTP"
+    order = 1
+    request_scheme_condition {
+      match_values = ["HTTP"]
+    }
+    url_redirect_action {
+      redirect_type = "Found"
+      protocol      = "Https"
+    }
   }
   is_compression_enabled = true
   content_types_to_compress = [
@@ -111,7 +136,30 @@ resource "azurerm_cdn_endpoint_custom_domain" "example" {
 
   cdn_managed_https {
     certificate_type = "Dedicated"
-    protocol_type = "ServerNameIndication"
-    tls_version = "TLS12"
+    protocol_type    = "ServerNameIndication"
+    tls_version      = "TLS12"
   }
+}
+
+resource "azurerm_service_plan" "asp" {
+  name                = "asp${var.project_name}"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = var.region
+  os_type             = "Linux"
+  sku_name            = "Y1"
+  tags = var.resource_tags
+}
+
+resource "azurerm_linux_function_app" "api" {
+  name = "func${var.project_name}"
+  storage_account_name = azurerm_storage_account.st.name
+  storage_account_access_key = azurerm_storage_account.st.primary_access_key
+  resource_group_name = azurerm_resource_group.rg.name
+  location = var.region
+  service_plan_id = azurerm_service_plan.asp.id
+  tags = var.resource_tags
+  site_config {
+    
+  }
+  
 }
