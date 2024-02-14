@@ -1,0 +1,20 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main/resume
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: AzureFileCopy@5
+  inputs:
+    SourcePath: '/resume'
+    azureSubscription: 'Azure subscription 1 (c8bf815a-c370-4cbf-932f-c6d7340752f6)'
+    Destination: 'AzureBlob'
+    storage: 'sttwcus0cloudresume1'
+    ContainerName: '$web'
+    CleanTargetBeforeCopy: true
