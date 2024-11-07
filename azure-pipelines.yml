@@ -17,7 +17,7 @@ steps:
   inputs:
     command: publish
     arguments: '--configuration Release --output publish_output'
-    projects: '/api/*.csproj'
+    projects: '**/api/*.csproj'
     publishWebProjects: false
     modifyOutputPath: false
     zipAfterPublish: false
