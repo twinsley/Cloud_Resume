@@ -12,7 +12,7 @@ pool:
 steps:
 - task: AzureFileCopy@5
   inputs:
-    SourcePath: '**/resume'
+    SourcePath: '${Build.Repository.LocalPath}/resume'
     azureSubscription: 'Azure Sub1 Filecopy'
     Destination: 'AzureBlob'
     storage: 'sttwcus0cloudresume1'
