@@ -3,7 +3,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 3.86.0"
+      version = "~> 4.8.0"
     }
   }
   backend "azurerm" {
@@ -11,6 +11,7 @@ terraform {
       storage_account_name = "tfstate27696"
       container_name       = "tfstate"
       key                  = "terraform.tfstate"
+      use_azuread_auth     = true   
   }
 
 
@@ -19,6 +20,7 @@ terraform {
 
 provider "azurerm" {
   features {}
+  subscription_id = "c8bf815a-c370-4cbf-932f-c6d7340752f6"
 }
 
 resource "azurerm_resource_group" "rg" {
@@ -158,8 +160,15 @@ resource "azurerm_linux_function_app" "api" {
   location = var.region
   service_plan_id = azurerm_service_plan.asp.id
   tags = var.resource_tags
+
   site_config {
+    application_stack {
+      dotnet_version = "8.0"
+      use_dotnet_isolated_runtime = true
+
+  }
     
   }
+
   
 }
