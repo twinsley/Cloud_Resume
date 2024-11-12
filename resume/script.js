@@ -17,9 +17,8 @@ function GetValueFromDB() {
     .then((data) => {
       console.log(data.TotalCount);
       count = data.TotalCount;
+      counter.innerHTML = `Visitor Count: ${count}`;
     });
-
-  counter.innerHTML = `Visitor Count: ${count}`;
 }
 
 GetValueFromDB();
