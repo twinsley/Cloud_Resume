@@ -1,5 +1,6 @@
 function GetValueFromDB() {
   let counter = document.getElementById("count");
+  let count = 0;
   let response;
   const API_URL =
     "https://functwcus0cloudresume1.azurewebsites.net/api/resumecounter";
@@ -13,10 +14,12 @@ function GetValueFromDB() {
     },
   })
     .then((response) => response.json())
-    .then((json) => console.log(json))
-    .then((json) => response);
+    .then((data) => {
+      console.log(data.TotalCount);
+      count = data.TotalCount;
+    });
 
-  counter = response.map("count");
+  counter.innerHTML = `Visitor Count: ${count}`;
 }
 
 GetValueFromDB();
