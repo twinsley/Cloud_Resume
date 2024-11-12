@@ -19,12 +19,9 @@ steps:
     ContainerName: '$web'
     CleanTargetBeforeCopy: true
 
-- pwsh: az devops configure --defaults organization='$(System.TeamFoundationCollectionUri)' project='$(System.TeamProject)' --use-git-aliases true
-  displayName: 'Set default Azure DevOps organization and project'
-
-- pwsh: |
-    az cdn endpoint purge --resource-group 'rgtwcus0cloudresume1' --profile-name 'cdntwcus0cloudresume1' --name 'cdneptwcus0cloudresume1' --no-wait --content-paths /*
-
-  displayName: 'Purge CDN endpoint'
-  env:
-    AZURE_DEVOPS_EXT_PAT: $(System.AccessToken)
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'Azure Sub1 Filecopy' 
+    scriptType: 'ps' 
+    scriptLocation: 'inlineScript'
+    inlineScript: az cdn endpoint purge --resource-group 'rgtwcus0cloudresume1' --profile-name 'cdntwcus0cloudresume1' --name 'cdneptwcus0cloudresume1' --no-wait --content-paths /*
