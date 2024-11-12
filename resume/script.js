@@ -1,7 +1,8 @@
 function GetValueFromDB() {
   let counter = document.getElementById("count");
   let response;
-  const API_URL = "https://functwcus0cloudresume1.azurewebsites.net";
+  const API_URL =
+    "https://functwcus0cloudresume1.azurewebsites.net/api/resumecounter";
   fetch(API_URL, {
     method: "POST",
     body: JSON.stringify({
