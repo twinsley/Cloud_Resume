@@ -3,24 +3,15 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 4.8.0"
+      version = "~> 3.86.0"
     }
   }
-  backend "azurerm" {
-      resource_group_name  = "tfstate"
-      storage_account_name = "tfstate27696"
-      container_name       = "tfstate"
-      key                  = "terraform.tfstate"
-      use_azuread_auth     = true   
-  }
-
 
   required_version = ">= 1.1.0"
 }
 
 provider "azurerm" {
   features {}
-  subscription_id = "c8bf815a-c370-4cbf-932f-c6d7340752f6"
 }
 
 resource "azurerm_resource_group" "rg" {
@@ -45,14 +36,6 @@ resource "azurerm_storage_table" "example" {
   name                 = "ResumeCounter"
   storage_account_name = azurerm_storage_account.st.name
 }
-# Create a virtual network
-resource "azurerm_virtual_network" "vnet" {
-  name                = "${var.vnet_prefix}${var.project_name}"
-  address_space       = ["10.0.0.0/16"]
-  location            = var.region
-  resource_group_name = azurerm_resource_group.rg.name
-  tags                = var.resource_tags
-}
 
 resource "azurerm_cdn_profile" "cdn" {
   name                = "cdn${var.project_name}"
@@ -66,24 +49,10 @@ resource "azurerm_cdn_endpoint" "cdnendpoint" {
   profile_name        = azurerm_cdn_profile.cdn.name
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  origin_host_header = azurerm_storage_account.st.primary_web_host
 
   origin {
     name      = "st"
-    host_name = azurerm_storage_account.st.primary_web_host
-    
-  }
-
-  delivery_rule {
-    name  = "HTTP"
-    order = 1
-    request_scheme_condition {
-      match_values = ["HTTP"]
-    }
-    url_redirect_action {
-      redirect_type = "Found"
-      protocol      = "Https"
-    }
+    host_name = azurerm_storage_account.st.primary_blob_host
   }
   is_compression_enabled = true
   content_types_to_compress = [
@@ -138,8 +107,8 @@ resource "azurerm_cdn_endpoint_custom_domain" "example" {
 
   cdn_managed_https {
     certificate_type = "Dedicated"
-    protocol_type    = "ServerNameIndication"
-    tls_version      = "TLS12"
+    protocol_type = "ServerNameIndication"
+    tls_version = "TLS12"
   }
 }
 
@@ -165,10 +134,29 @@ resource "azurerm_linux_function_app" "api" {
     application_stack {
       dotnet_version = "8.0"
       use_dotnet_isolated_runtime = true
-
+  }
+  cors {
+    allowed_origins = [
+        "https://127.0.0.1:5000",
+        "https://localhost:5000",
+        "https://resume.twinsley.com",
+        "https://sttwcus0cloudresume1.z19.web.core.windows.net",
+    ]
+    support_credentials = true
   }
     
   }
+  app_settings = {
+    "AZURE_STORAGETABLE_RESOURCEENDPOINT": "https://sttwcus0cloudresume1.table.core.windows.net/",
+    "WEBSITE_ENABLE_SYNC_UPDATE_SITE": "false"
+    }
+  identity {
+    type = "SystemAssigned"
+  }
+}
 
-  
+resource "azurerm_role_assignment" "example" {
+  scope                = resource.azurerm_storage_account.st.id
+  role_definition_name = "Storage Table Data Contributor"
+  principal_id         = resource.azurerm_linux_function_app.api.identity[0].principal_id
 }
