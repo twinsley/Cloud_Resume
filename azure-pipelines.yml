@@ -4,7 +4,12 @@
 # https://aka.ms/yaml
 
 trigger:
-- main/iac
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - api/*
 
 pool:
   vmImage: ubuntu-latest
