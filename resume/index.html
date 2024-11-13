@@ -13,7 +13,9 @@
       <b id="count">Visitor Count: </b>
     </div>
     <div class="contact">
-      <a href="https://www.linkedin.com/in/timwinsley">https://www.linkedin.com/in/timwinsley</a><br />
+      <a href="https://www.linkedin.com/in/timwinsley"
+        >https://www.linkedin.com/in/timwinsley</a
+      ><br />
       <a href="https://github.com/twinsley">https://github.com/twinsley</a>
     </div>
     <br />
@@ -131,21 +133,51 @@
         <li>Comptia Linux+</li>
       </ul>
     </div>
-      <h2>Languages</h2>
-      <div id="firstlang">
-        <ul>
-          <li>Powershell</li>
-          <li>Python</li>
-          <li>C#/.NET</li>
-        </ul>
-      </div>
-      <div id="secondlang">
-        <ul>
-          <li>Javascript</li>
-          <li>SQL</li>
-        </ul>
-      </div>
+    <div id="languages">
+    <h2>Languages</h2>
+    <div id="firstlang">
+      <ul>
+        <li>Powershell</li>
+        <li>Python</li>
+        <li>C#/.NET</li>
+      </ul>
+    </div>
+    <div id="secondlang">
+      <ul>
+        <li>Javascript</li>
+        <li>SQL</li>
+      </ul>
+    </div>
+  </div>
+    <div style="clear:both;">
+    <div id="projects">
+      <h2>Projects</h2>
+      <div class="projects" id="airportconditions">
+      <h4>
+        AirportConditions.com -
+        <a href="https://github.com/twinsley/AirportAPI"
+          >https://github.com/twinsley/AirportAPI</a
+        >
+      </h4>
+      <p>
+        This project is a .NET API backend serving a simple HTML/CSS/vanilla JS
+        frontend. It collects weather readings from Arduino based sensors at a
+        local airport and stores them in a MySQL database, then displays the
+        current conditions and wind direction relative to the runway.
+      </p>
+    </div>
+    <hr>
+    <div class="projects" id="resumesite">
+      <h4>
+        Resume Website -
+        <a href="https://github.com/twinsley/Cloud_Resume"
+          >https://github.com/twinsley/Cloud_Resume</a
+        >
+      </h4>
+      <p>
+        This is the site you're now looking at, an Azure hosted resume along the lines of the Cloud Resume challenge from https://cloudresumechallenge.dev. It uses a static site stored in Azure Blob Storage and served through an Azure CDN for the frontend to a simple HTML/CSS/JS version of my resume. It also uses a C# Azure Function and Azure Table storage to run a visitor counter. All infrastructure for it is managed through Terraform, and the code is built and deployed through Azure Devops Pipelines.
+      </p>
+    </div>
     </div>
   </body>
 </html>
-
