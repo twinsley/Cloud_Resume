@@ -19,10 +19,17 @@ h1 {
 }
 #firstlang {
   float: left;
+  margin-top: -1em;
 }
 #secondlang {
   float: left;
+  margin-top: -1em;
 }
 a {
   color: black;
+}
+
+h4 {
+  margin-bottom: 0%;
+  margin-top: 0.7em;
 }
