@@ -1,24 +1,28 @@
 body {
-    max-width: 1024px;
-    padding: 5px 30px;
-    margin:auto;
-    font-family: Arial, Helvetica, sans-serif;
+  max-width: 1024px;
+  padding: 5px 30px;
+  margin: auto;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: large;
 }
 h1 {
-    font-style: italic;
-    text-align: center;
+  font-style: italic;
+  text-align: center;
 }
 
 .contact {
-    text-align: right;
-    text-decoration: underline;
+  text-align: right;
+  text-decoration: underline;
 }
 .counter {
-    float: left;
+  float: left;
 }
 #firstlang {
-    float:left;
+  float: left;
 }
 #secondlang {
-    float: left;
+  float: left;
+}
+a {
+  color: black;
 }
