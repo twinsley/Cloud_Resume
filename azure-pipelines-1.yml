@@ -8,6 +8,8 @@ trigger:
     include:
       - main
   paths:
+    exclude:
+     - '*'
     include:
       - resume/*
 
