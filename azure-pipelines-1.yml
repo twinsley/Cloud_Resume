@@ -1,0 +1,34 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - resume/*
+
+  
+
+pool:
+  vmImage: windows-latest
+
+steps:
+- task: AzureFileCopy@5
+  inputs:
+    SourcePath: '${Build.Repository.LocalPath}/resume/*'
+    azureSubscription: 'Azure Sub1 Filecopy'
+    Destination: 'AzureBlob'
+    storage: 'sttwcus0cloudresume1'
+    ContainerName: '$web'
+    CleanTargetBeforeCopy: true
+
+- task: AzureCLI@2
+  inputs:
+    azureSubscription: 'Azure Sub1 Filecopy' 
+    scriptType: 'ps' 
+    scriptLocation: 'inlineScript'
+    inlineScript: az cdn endpoint purge --resource-group 'rgtwcus0cloudresume1' --profile-name 'cdntwcus0cloudresume1' --name 'cdneptwcus0cloudresume1' --no-wait --content-paths /*
