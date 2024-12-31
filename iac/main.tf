@@ -165,14 +165,26 @@ resource "azurerm_linux_function_app" "api" {
         "https://resume.twinsley.com",
         "https://sttwcus0cloudresume1.z19.web.core.windows.net",
     ]
-    support_credentials = true
+    support_credentials = false
   }
+  ip_restriction {
+    ip_address = "23.92.31.61/32"
+    action = "Allow"
+    description = "Linode NGINX"
+  }
+  ip_restriction_default_action = "Deny"
     
   }
   app_settings = {
     "AZURE_STORAGETABLE_RESOURCEENDPOINT": "https://sttwcus0cloudresume1.table.core.windows.net/",
-    "WEBSITE_ENABLE_SYNC_UPDATE_SITE": "false"
+    "WEBSITE_ENABLE_SYNC_UPDATE_SITE": "false",
+    "WEBSITE_RUN_FROM_PACKAGE": "placeholder"
     }
+       lifecycle {
+    ignore_changes = [
+      app_settings["WEBSITE_RUN_FROM_PACKAGE"],
+    ]
+  }
   identity {
     type = "SystemAssigned"
   }
