@@ -19,7 +19,7 @@ pool:
   vmImage: windows-latest
 
 steps:
-- task: AzureFileCopy@5
+- task: AzureFileCopy@6
   inputs:
     SourcePath: '${Build.Repository.LocalPath}/resume/*'
     azureSubscription: 'Azure Sub1 Filecopy'
