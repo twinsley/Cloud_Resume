@@ -1,82 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <link rel="stylesheet" href="./style.css" />
-    <script defer type="text/javascript" src="script.js"></script>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TW Resume</title>
-  </head>
-  <body>
-    <h1>Timothy Winsley</h1>
-    <div class="counter">
-      <b id="count">Visitor Count: </b>
-    </div>
-    <div class="contact">
-      <a href="https://www.linkedin.com/in/timwinsley"
-        >https://www.linkedin.com/in/timwinsley</a
-      ><br />
-      <a href="https://github.com/twinsley">https://github.com/twinsley</a>
-    </div>
-    <br />
 
+<head>
+  <link rel="stylesheet" href="./style.css" />
+  <script defer type="text/javascript" src="script.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TW Resume</title>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Timothy Winsley</h1>
+    <span class="subtitle">Cloud Engineer | DevOps Engineer | Software Engineer</span>
+    <br />
+    <div>
+      <div class="counter">
+        <span id="count">Loading visitor data...</span>
+      </div>
+      <div class="contact">
+        <a href="https://www.linkedin.com/in/timwinsley">LinkedIn</a> |
+        <a href="https://github.com/twinsley">GitHub</a>
+      </div>
+    </div>
+    <hr />
     <h2>Professional Experience</h2>
     <ul>
       <li>
-        <b>Cloud Engineer</b> / <b>Compliant Pharmacy Alliance</b> / July 2022 -
+        <b>Cloud Engineer</b> / <b>Compliant Pharmacy Alliance</b> / Feb 2024 -
         Present
         <ul>
           <li>
-            Build Azure AD B2C custom policies to implement MFA and Conditional
-            Access for apps using both OpenID and SAML auth protocols
+            Architect and implement highly available multi-region Azure infrastructure improving application reliability
+            and user experience across geographically distributed user base
           </li>
           <li>
-            Implement custom OpenID Connect notification handler to correlate
-            user activity before and after login.
+            Design and deploy secure, scalable cloud solutions aligned with business objectives, including .NET web
+            applications with SQL Server, Sitefinity CMS, and integrated Dynamics 365 systems
           </li>
           <li>
-            Contributed to the development of a .NET website with SQL Server
-            database and Sitefinity CMS, working with others to design and
-            implement the site using C#, Javascript, CSS, and HTML.
+            Build and maintain Azure DevOps CI/CD YAML pipelines automating build, test, and deployment processes across
+            multiple environments
           </li>
           <li>
-            Secure website and other apps using Azure Key Vault for secret
-            management, Azure Application Gateway with WAF, Azure Firewall, etc
+            Analyze cloud resource utilization and optimize infrastructure for cost efficiency while maintaining
+            performance requirements
           </li>
           <li>
-            Build and maintain user management integrations between MS Dynamics
-            365 and Azure AD B2C using Azure Logic Apps and the Graph API
+            Implement and enforce cloud security best practices including IAM through Azure AD B2C with MFA and
+            Conditional Access policies
           </li>
           <li>
-            Develop REST APIs and microservices using Azure Functions with
-            C#/.NET Core and Powershell
+            Secure cloud environments using Azure Front Door, Application Gateway with WAF, Azure Firewall, and network
+            segmentation strategies
           </li>
           <li>
-            Developed and maintained Azure DevOps CI/CD YAML build and release
-            pipelines.
+            Develop REST APIs and microservices using Azure Functions with C#/.NET Core and Powershell for automated
+            workflows and integrations
           </li>
           <li>
-            Manage and customize Dynamics 365 with custom C# plugins and other
-            integrations
+            Establish governance frameworks using Azure Policy to enforce compliance requirements, naming conventions,
+            and resource tagging standards across subscriptions
+          </li>
+        </ul>
+      </li>
+
+      <br />
+      <li>
+        <b>Cloud Administrator</b> / <b>Compliant Pharmacy Alliance</b> / Feb 2024 -
+        Present
+        <ul>
+          <li>
+            Build user management integrations between Microsoft Dynamics 365 and Azure AD B2C using Azure Logic Apps
+            and Microsoft Graph API </li>
+          <li>
+            Manage and customize Dynamics 365 with custom C# plugins and other integrations
           </li>
           <li>
-            Manage and administrate Office 365, including Exchange Online,
-            Teams, user management in Entra ID, etc
-          </li>
+            Build and manage systems to handle incoming raw data feeds, including use of Storage accounts, Azure
+            Functions, Logic Apps, etc as required </li>
           <li>
-            Design and implement processes and systems to increase system
-            reliability and user efficiency using Power Automate, Power Apps,
-            etc
-          </li>
+            Plan and implement fully automated endpoint deployment process using Intune Autopilot </li>
           <li>
-            Implement and manage monitoring systems, including Azure Sentinel,
-            App Insights, and Log Analytics.
-          </li>
+            Configure and manage comprehensive monitoring solutions including Azure Sentinel, Application Insights, and
+            Log Analytics to track system performance and security events </li>
           <li>
-            Build and manage systems to handle incoming raw data feeds,
-            including use of Storage accounts, Azure Functions, Logic Apps, etc
-            as required
-          </li>
+            Develop and maintain Infrastructure as Code using Bicep and ARM templates for consistent, repeatable cloud
+            resource deployments </li>
+          <li>
+            Build and manage Power Apps and Power Automate Flows to streamline and automate business processes </li>
         </ul>
       </li>
 
@@ -93,20 +105,7 @@
         </ul>
       </li>
       <br />
-      <li>
-        <b>Lead Diagnostic Technician</b> / <b>Reed’s Top Tech</b> / January
-        2017 - December 2021
-        <ul>
-          <li>
-            Diagnose and repair vehicles, specializing in electronic / network
-            diagnostics.
-          </li>
-          <li>
-            Maintain shop computer system and networks, update / upgrade as
-            needed.
-          </li>
-        </ul>
-      </li>
+
     </ul>
     <div class="certs">
       <h2>Certifications and Education</h2>
@@ -123,50 +122,65 @@
       </ul>
     </div>
     <div id="languages">
-    <h2>Languages</h2>
-    <div id="firstlang">
-      <ul>
-        <li>Powershell</li>
-        <li>Python</li>
-        <li>C#/.NET</li>
-      </ul>
+      <h2>Languages</h2>
+      <div id="firstlang">
+        <ul>
+          <li>Powershell</li>
+          <li>Python</li>
+          <li>C#/.NET</li>
+        </ul>
+      </div>
+      <div id="secondlang">
+        <ul>
+          <li>Javascript</li>
+          <li>SQL</li>
+        </ul>
+      </div>
     </div>
-    <div id="secondlang">
-      <ul>
-        <li>Javascript</li>
-        <li>SQL</li>
-      </ul>
-    </div>
-  </div>
-    <div style="clear:both;">
+    <div style="clear:both;"></div>
     <div id="projects">
       <h2>Projects</h2>
+      <div class="projects" id="aadb2cextension">
+        <h4>
+          Azure AD B2C User Manager -
+          <a
+            href="https://github.com/twinsley/AADB2CExtensionModifier">https://github.com/twinsley/AADB2CExtensionModifier</a>
+        </h4>
+        <p>
+          This project is a simple .NET WPF app intended to help with one of the significant pain points of AAD B2C /
+          Entra External ID. It’s common to use extension attributes on users, and the only way to update those
+          attributes natively is to use the Graph API. This app provides an easy to use GUI to look up a user by either
+          email or UPN and view or update both standard user attributes and the extension attributes.
+        </p>
+      </div>
+      <hr />
       <div class="projects" id="airportconditions">
-      <h4>
-        AirportConditions.com -
-        <a href="https://github.com/twinsley/AirportAPI"
-          >https://github.com/twinsley/AirportAPI</a
-        >
-      </h4>
-      <p>
-        This project is a .NET API backend serving a simple HTML/CSS/vanilla JS
-        frontend. It collects weather readings from Arduino based sensors at a
-        local airport and stores them in a MySQL database, then displays the
-        current conditions and wind direction relative to the runway.
-      </p>
+        <h4>
+          AirportConditions.com -
+          <a href="https://github.com/twinsley/AirportAPI">https://github.com/twinsley/AirportAPI</a>
+        </h4>
+        <p>
+          This project is a .NET API backend serving a simple HTML/CSS/vanilla JS frontend. It collects weather readings
+          from Arduino based sensors at a local airport and stores them in a MySQL database, then displays the current
+          conditions and wind direction relative to the runway.
+        </p>
+      </div>
+      <hr />
+      <div class="projects" id="resumesite">
+        <h4>
+          Resume Website -
+          <a href="https://github.com/twinsley/Cloud_Resume">https://github.com/twinsley/Cloud_Resume</a>
+        </h4>
+        <p>
+          This is an Azure hosted resume along the lines of the Cloud Resume challenge from <a
+            href="https://cloudresumechallenge.dev">https://cloudresumechallenge.dev</a>. It uses a HTML/CSS/JS version
+          of my resume as a static site stored in Azure Blob Storage and served through an Azure CDN, along with a C#
+          Azure Function and Azure Table storage as the backend for the visitor counter. All infrastructure for it is
+          managed through Terraform, and the code is built and deployed through Azure Devops Pipelines.
+        </p>
+      </div>
     </div>
-    <hr>
-    <div class="projects" id="resumesite">
-      <h4>
-        Resume Website -
-        <a href="https://github.com/twinsley/Cloud_Resume"
-          >https://github.com/twinsley/Cloud_Resume</a
-        >
-      </h4>
-      <p>
-        This is the site you're now looking at, an Azure hosted resume along the lines of the Cloud Resume challenge from https://cloudresumechallenge.dev. It uses a HTML/CSS/JS version of my resume as a static site stored in Azure Blob Storage and served through an Azure CDN, along with a C# Azure Function and Azure Table storage as the backend for the visitor counter. All infrastructure for it is managed through Terraform, and the code is built and deployed through Azure Devops Pipelines.
-      </p>
-    </div>
-    </div>
-  </body>
+  </div>
+</body>
+
 </html>
